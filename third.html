@@ -8,14 +8,13 @@
     body {
       margin: 0;
       font-family: 'Playfair Display', serif;
-      background: #ffffff; /* fundo branco sempre */
+      background: linear-gradient(135deg, #fce7f3, #e0f2fe);
       color: #333;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
       overflow: hidden;
-      transition: background 0.3s;
     }
 
     .container {
@@ -83,24 +82,34 @@
     }
 
     /* Responsividade */
-    @media (max-width: 768px) { 
+    @media (max-width: 768px) { /* tablets menores e grandes smartphones */
       .container {
         width: 90%;
         height: 70%;
         padding: 20px 15px;
       }
-      #texto { font-size: 1.3rem; line-height: 1.6; }
-      .title { font-size: 1.6rem; }
+      #texto {
+        font-size: 1rem;
+      }
+      .title {
+        font-size: 1.3rem;
+      }
     }
 
-    @media (max-width: 420px) { 
+    @media (max-width: 420px) { /* Samsung A14 e smartphones pequenos */
       .container {
         width: 95%;
         height: 65%;
         padding: 15px 10px;
       }
-      #texto { font-size: 1.4rem; line-height: 1.5; }
-      .title { font-size: 1.7rem; margin-bottom: 10px; }
+      #texto {
+        font-size: 0.95rem;
+        line-height: 1.5;
+      }
+      .title {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+      }
     }
   </style>
 </head>
@@ -116,14 +125,7 @@
   <div class="petals" id="petals"></div>
 
   <script>
-    // Detecta tema do sistema e ajusta cores
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if(prefersDark){
-      document.body.style.background = "#ffffff"; // garante fundo branco no dark mode
-      document.querySelector('.container').style.background = "rgba(255,255,255,0.95)";
-    }
-
-    const texto = `E lá vamos nós… vou usar toda minha memória pra escrever e te dedicar essa carta do fundo do coração. Sério, você é muito mais do que eu consigo colocar em palavras. Você é uma das poucas pessoas com quem eu realmente me aproximei, alguém que me fez sentir seguro pra amar e confiar.
+  const texto = `E lá vamos nós… vou usar toda minha memória pra escrever e te dedicar essa carta do fundo do coração. Sério, você é muito mais do que eu consigo colocar em palavras. Você é uma das poucas pessoas com quem eu realmente me aproximei, alguém que me fez sentir seguro pra amar e confiar.
 
 Desde a primeira vez que te vi, eu te chamei de "a menina da calça azul" pro Carlos. Você desviava o olhar de um jeito tímido que me encantava demais. Até que, em um dia qualquer, sentei do seu lado e perguntei: “Que horas são?” kkkkk, eu nem imaginava que uma pergunta tão besta ia me deixar curioso pra conhecer cada detalhe seu.
 
@@ -138,7 +140,6 @@ Quando você viajou pra Ushuaia, fiquei morrendo de saudades, mas pensei: “cal
 Você é verdadeira Adina, sem filtros, e me sinto sortudo demais de ter te conhecido. Cada dia ao seu lado parece preencher minha própria lista de vida, como nos filmes que a gente ama: “Um Amor de Cinema”. 
 
 Gosto do seu jeito doce, do jeito tímido de perguntar algo, do seu sorriso que ilumina qualquer lugar. Me encanto com você todo dia. Tento fazer tudo que não fizeram por você, porque sei que você merece. Te amo muito, no momento estou com 30 motivos pelos quais me apaixonei por você, Adina, e dedico essa carta inteirinha a você.`;
-
     let i = 0;
     const textoEl = document.getElementById("texto");
     const wrapperEl = document.getElementById("texto-wrapper");
