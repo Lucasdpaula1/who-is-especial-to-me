@@ -81,39 +81,87 @@
       100% { transform: translateY(-10vh) scale(1); opacity: 0; }
     }
 
+    /* Overlay de segurança */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(10px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    .overlay-box {
+      background: white;
+      padding: 30px 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 25px rgba(0,0,0,0.2);
+      text-align: center;
+      width: 280px;
+    }
+    .overlay-box h2 {
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+    }
+    .overlay-box input {
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      outline: none;
+      margin-bottom: 12px;
+      font-size: 1rem;
+      text-align: center;
+    }
+    .overlay-box button {
+      background: #ff8fa3;
+      border: none;
+      padding: 10px 20px;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    .overlay-box button:hover {
+      background: #ff5c7a;
+    }
+
     /* Responsividade */
-    @media (max-width: 768px) { /* tablets menores e grandes smartphones */
+    @media (max-width: 768px) {
       .container {
         width: 90%;
         height: 70%;
         padding: 20px 15px;
       }
-      #texto {
-        font-size: 1rem;
-      }
-      .title {
-        font-size: 1.3rem;
-      }
+      #texto { font-size: 1rem; }
+      .title { font-size: 1.3rem; }
     }
 
-    @media (max-width: 420px) { /* Samsung A14 e smartphones pequenos */
+    @media (max-width: 420px) {
       .container {
         width: 95%;
         height: 65%;
         padding: 15px 10px;
       }
-      #texto {
-        font-size: 0.95rem;
-        line-height: 1.5;
-      }
-      .title {
-        font-size: 1.2rem;
-        margin-bottom: 10px;
-      }
+      #texto { font-size: 0.95rem; line-height: 1.5; }
+      .title { font-size: 1.2rem; margin-bottom: 10px; }
     }
   </style>
 </head>
 <body>
+  <!-- Overlay -->
+  <div class="overlay" id="overlay">
+    <div class="overlay-box">
+      <h2>Somente a Ádina que eu conheço saberia responder...</h2>
+      <p>Sou o apelido que só você entende, e a cor certa nunca esteve na blusa</p>
+      <p>Quem eu sou??</p>
+      <input type="text" id="userInput" placeholder="Digite sua resposta"  />
+      <button id="validateBtn">Entrar</button>
+    </div>
+  </div>
+
   <div class="container">
     <div id="texto-wrapper">
       <p class="title">💌 Carta digital para menina da calça azul 💌</p>
@@ -125,21 +173,7 @@
   <div class="petals" id="petals"></div>
 
   <script>
-  const texto = `E lá vamos nós… vou usar toda minha memória pra escrever e te dedicar essa carta do fundo do coração. Sério, você é muito mais do que eu consigo colocar em palavras. Você é uma das poucas pessoas com quem eu realmente me aproximei, alguém que me fez sentir seguro pra amar e confiar.
-
-Desde a primeira vez que te vi, eu te chamei de "a menina da calça azul" pro Carlos. Você desviava o olhar de um jeito tímido que me encantava demais. Até que, em um dia qualquer, sentei do seu lado e perguntei: “Que horas são?” kkkkk, eu nem imaginava que uma pergunta tão besta ia me deixar curioso pra conhecer cada detalhe seu.
-
-No dia seguinte você não apareceu, e o Carlos comentou que você tinha pegado o mesmo ônibus que ele. Eu fiquei tipo “Ah não, será que eu assustei ela ontem?” fiquei aqui pensando comigo mesmo, “cara, eu fui muito invasivo ou tá tudo bem?” Mas aí você apareceu de novo, linda e radiante, e eu tentei não incomodar… mas, por dentro, morria de vontade de conversar contigo.
-
-Mais tarde, você veio falar comigo e eu fiquei tipo “ela trabalha no Sinduscon?” kkkk, eu nem sabia o que era Sinduscon. Pensei comigo mesmo: "Que diabo é Sinduscon? Aonde fica isso?" Fiz tantas perguntas na minha cabeça que não tive coragem de fazer na hora pra você, mas estava tão feliz que você tinha chegado até mim que tentei me conter com essas emoções. Logo quando cheguei no observatório, fui todo animado dizendo pro Carlos: “Carlos, adivinha quem veio falar comigo hoje?” Ele: “Quem?” Eu: “A menina da calça azul” 😄 Nesse mesmo dia, fui atrás de saber o que era Sinduscon pra, no outro dia, ter algum assunto em comum contigo kkkk.
-
-Lembro como se fosse ontme do nosso primeiro encontro no Food Square. Eu tava nervoso, nunca tinha ido lá e ainda por cima ia sair com você! Mas amei demais e me cultivo aquelas lembraças até hoje. Foi lá que rolou nosso primeiro beijo, e você estava incrível. Conheci mais sobre você, seus gostos, sua família, e você conheceu um pouco sobre mim. Rimos, brincamos, tentamos tirar o urso, mas o que ficou mesmo foram as risadas. Cada detalhe ficou guardado como em um filme de amor, vivendo o nosso próprio “Um Amor de Cinema”. Pensei: “como alguém pode ser tão incrível e nem perceber o quão especial é?” 
-
-Quando você viajou pra Ushuaia, fiquei morrendo de saudades, mas pensei: “calma, é só uma semana”. Mesmo de longe eu queria estar perto, saber se você tava curtindo tudo, segura, aproveitando a natureza que você ama. E lembrei do colar que você tinha visto no Food Square… fui atrás dele como surpresa, guardando como se fosse um tesouro. Porque, sério, cada momento com você é precioso e eu quero lembrar de tudo.
-
-Você é verdadeira Adina, sem filtros, e me sinto sortudo demais de ter te conhecido. Cada dia ao seu lado parece preencher minha própria lista de vida, como nos filmes que a gente ama: “Um Amor de Cinema”. 
-
-Gosto do seu jeito doce, do jeito tímido de perguntar algo, do seu sorriso que ilumina qualquer lugar. Me encanto com você todo dia. Tento fazer tudo que não fizeram por você, porque sei que você merece. Te amo muito, no momento estou com 30 motivos pelos quais me apaixonei por você, Adina, e dedico essa carta inteirinha a você.`;
+    const texto = `E lá vamos nós… vou usar toda minha memória pra escrever e te dedicar essa carta do fundo do coração. Sério, você é muito mais do que eu consigo colocar em palavras. Você é uma das poucas pessoas com quem eu realmente me aproximei, alguém que me fez sentir seguro pra amar e confiar. Desde a primeira vez que te vi, eu te chamei de "a menina da calça azul" pro Carlos. Você desviava o olhar de um jeito tímido que me encantava demais. Até que, em um dia qualquer, sentei do seu lado e perguntei: “Que horas são?” kkkkk, eu nem imaginava que uma pergunta tão besta ia me deixar curioso pra conhecer cada detalhe seu. No dia seguinte você não apareceu, e o Carlos comentou que você tinha pegado o mesmo ônibus que ele. Eu fiquei tipo “Ah não, será que eu assustei ela ontem?” fiquei aqui pensando comigo mesmo, “cara, eu fui muito invasivo ou tá tudo bem?” Mas aí você apareceu de novo, linda e radiante, e eu tentei não incomodar… mas, por dentro, morria de vontade de conversar contigo. Mais tarde, você veio falar comigo e eu fiquei tipo “ela trabalha no Sinduscon?” kkkk, eu nem sabia o que era Sinduscon. Pensei comigo mesmo: "Que diabo é Sinduscon? Aonde fica isso?" Fiz tantas perguntas na minha cabeça que não tive coragem de fazer na hora pra você, mas estava tão feliz que você tinha chegado até mim que tentei me conter com essas emoções. Logo quando cheguei no observatório, fui todo animado dizendo pro Carlos: “Carlos, adivinha quem veio falar comigo hoje?” Ele: “Quem?” Eu: “A menina da calça azul” 😄 Nesse mesmo dia, fui atrás de saber o que era Sinduscon pra, no outro dia, ter algum assunto em comum contigo kkkk. Lembro como se fosse ontme do nosso primeiro encontro no Food Square. Eu tava nervoso, nunca tinha ido lá e ainda por cima ia sair com você! Mas amei demais e me cultivo aquelas lembraças até hoje. Foi lá que rolou nosso primeiro beijo, e você estava incrível. Conheci mais sobre você, seus gostos, sua família, e você conheceu um pouco sobre mim. Rimos, brincamos, tentamos tirar o urso, mas o que ficou mesmo foram as risadas. Cada detalhe ficou guardado como em um filme de amor, vivendo o nosso próprio “Um Amor de Cinema”. Pensei: “como alguém pode ser tão incrível e nem perceber o quão especial é?” Quando você viajou pra Ushuaia, fiquei morrendo de saudades, mas pensei: “calma, é só uma semana”. Mesmo de longe eu queria estar perto, saber se você tava curtindo tudo, segura, aproveitando a natureza que você ama. E lembrei do colar que você tinha visto no Food Square… fui atrás dele como surpresa, guardando como se fosse um tesouro. Porque, sério, cada momento com você é precioso e eu quero lembrar de tudo. Você é verdadeira Adina, sem filtros, e me sinto sortudo demais de ter te conhecido. Cada dia ao seu lado parece preencher minha própria lista de vida, como nos filmes que a gente ama: “Um Amor de Cinema”. Gosto do seu jeito doce, do jeito tímido de perguntar algo, do seu sorriso que ilumina qualquer lugar. Me encanto com você todo dia. Tento fazer tudo que não fizeram por você, porque sei que você merece. Te amo muito, no momento estou com 30 motivos pelos quais me apaixonei por você, Adina, e dedico essa carta inteirinha a você`;
     let i = 0;
     const textoEl = document.getElementById("texto");
     const wrapperEl = document.getElementById("texto-wrapper");
@@ -160,7 +194,18 @@ Gosto do seu jeito doce, do jeito tímido de perguntar algo, do seu sorriso que 
         setTimeout(typeWriter, 100);
       }
     }
-    typeWriter();
+    const overlay = document.getElementById("overlay");
+    const validateBtn = document.getElementById("validateBtn");
+    const userInput = document.getElementById("userInput");
+    function checkProgressToLetter(){  if (userInput.value.trim().toLowerCase() === "a menina da calça azul") {
+        overlay.style.display = "none";
+        typeWriter();
+        setInterval(createHeart, 500);
+        setInterval(createPetal, 700);
+      } else {
+        alert("Palavra incorreta, tente novamente! 💭");
+      }}
+    validateBtn.addEventListener("click", checkProgressToLetter);
 
     // Corações animados
     function createHeart() {
@@ -172,7 +217,7 @@ Gosto do seu jeito doce, do jeito tímido de perguntar algo, do seu sorriso que 
       document.getElementById("hearts").appendChild(heart);
       setTimeout(() => heart.remove(), 6000);
     }
-    setInterval(createHeart, 500);
+    
 
     // Pétalas animadas
     function createPetal() {
@@ -184,7 +229,7 @@ Gosto do seu jeito doce, do jeito tímido de perguntar algo, do seu sorriso que 
       document.getElementById("petals").appendChild(petal);
       setTimeout(() => petal.remove(), 8000);
     }
-    setInterval(createPetal, 700);
+    
   </script>
 </body>
 </html>
