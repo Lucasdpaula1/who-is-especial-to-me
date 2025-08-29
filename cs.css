@@ -112,3 +112,17 @@
   .overlay-box { width: 90%; padding: 1rem; }
   #texto { font-size: 0.9rem; line-height: 1.4; }
 }
+
+
+
+
+    @media (max-width: 768px) {
+  .container {
+    width: 95%;       /* aumenta largura */
+    height: 65vh;     /* diminui altura para caber na tela */
+    padding: 1.5rem;
+  }
+  #texto {
+    font-size: 0.95rem;
+  }
+}
