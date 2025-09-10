@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>LEIA-ME QUANDO...</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    margin: 0;
+    font-family: 'Playfair Display', serif;
+    background: linear-gradient(135deg, #fce7f3, #e0f2fe);
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+  }
+
+  h1 {
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  /* Grid de cards */
+  .cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 1200px;
+  }
+
+  .card {
+    background: rgba(255,255,255,0.9);
+    border-radius: 15px;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  }
+
+  .card h2 {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+  }
+
+  /* Modal */
+  .modal {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    padding: 1rem;
+  }
+
+  .modal-content {
+     background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  }
+
+  .modal-content p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    white-space: pre-line;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ff5c7a;
+    cursor: pointer;
+  }
+
+  /* Responsividade */
+  /* @media (max-width: 1024px) {
+    .cards-container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .cards-container {
+      grid-template-columns: 1fr;
+    }
+    .card {
+      padding: 1.2rem;
+    }
+    .card h2 {
+      font-size: 1rem;
+    }
+  } */
+  @media (max-width: 1024px) {
+  .modal-content {
+    max-width: 80%;   /* ocupa 80% da largura da tela */
+    padding: 1.5rem;
+  }
+}
+
+/* Celulares */
+@media (max-width: 600px) {
+     /* .cards-container {
+      grid-template-columns: 1fr;
+    }
+    .card {
+      padding: 1.2rem;
+    }
+    .card h2 {
+      font-size: 1rem;
+    } */
+  .modal-content {   /* ocupa quase toda a largura, mas ainda com margem */
+    padding: 1rem;
+  }
+ .modal-content p {
+    font-size: 1rem;   /* texto levemente menor */
+    line-height: 1.4;
+  }
+
+  .close-btn {
+    font-size: 1.2rem; /* botão fecha proporcional */
+    top: 8px;
+    right: 10px;
+  }}
+
+</style>
+</head>
+<body>
+
+<h1>Leia-me quando...</h1>
+
+<div class="cards-container" id="cardsContainer"></div>
+
+<!-- Modal -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <span class="close-btn" id="closeBtn">&times;</span>
+    <p id="modalText"></p>
+  </div>
+</div>
+
+<script>
+const mensagens = [
+  {
+    titulo: "precisar de um conselho de amor",
+    texto: "O melhor conselho que eu posso te dar é: ame as pessoas independente da máscara que elas estejam usando. Isso fala muito mais sobre você do que sobre elas."
+  },
+  {
+    titulo: "quiser uma receita especial",
+    texto: "Nem sempre precisa ser algo elaborado: pode ser um suco bem feito que não fique aguado igual o meu, ou um pudim delicioso do jeitinho que você ama. O importante é que a comida traga conforto e um sorriso."
+  },
+  {
+    titulo: "quando você quiser dar um sorriso",
+    texto: "Lembra da voadora que o gato me deu quando eu tentei gravar um vídeo fofo para você?\nOu quando fiquei com a mão presa na porta do ônibus tentando segurar pro pessoal descer?\nSem esquecer o clássico: 'cuidado com a Pata' que eu entendi como 'cuidado com a faca' e quase me engasguei comendo a coxinha kkk.\nE teve também o dia em que você pisou na poça, encharcou a calça cinza… no começo foi tenso, mas depois virou risada e deixou tudo mais leve."
+  },
+  {
+    titulo: "duvidar de si mesma",
+    texto: "Você é incrível e muito competente. Não é à toa que a Copa da Construção Civil e o Encontro Nacional foram um sucesso com você à frente. Eu vi de perto sua dedicação, sua precisão e o carinho que teve com todos.\nLembro de você cuidando da Gabi, percebendo que ela não tinha saído da parte das massagens. Lembro de você segurando tudo quando a Cássia precisou se ausentar por questões de saúde. Mesmo desgastada, você estava lá, firme, com um sorriso no rosto. Isso diz muito sobre a pessoa que você é."
+  },
+  {
+    titulo: "quiser saber das coisas que me lembram você",
+    texto: "Tem várias: um camarão bem feito, o cheiro do perfume Liz, quando passo em frente a uma farmácia e vejo um Baumer labial, quando vejo lojas de joias, quando escuto k-pop ou algo relacionado, escuto falarem de doramas ou até quando algo me lembra a construção civil. E claro… um pudim sempre vai me trazer você à memória."
+  },
+  {
+    titulo: "quiser saber minha memória favorita de você",
+    texto: "Todas as memórias que tenho com você eu guardo com muito carinho, mas tem uma que sempre volta quando estou prestes à dormir.\nFoi um dia antes da sua viagem para Ushuaia: te fiz esperar uns minutinhos na parada, recebi meus presentes do Sana que você trouxe, comemos aquele feijão verde gigante enormekkk, espetinho, dei o resto do espetinho para o cachorro e vc ainda me disse que era melhor tirar do palito porque se não ele não ia comer, rimos, tomamos um açaí,fizemos o nosso teste da nossa linguagem do amor, conheci mais sobre você e no fim da noite, quando fui te deixar em casa pela primeira vez, te dei um abraço bem apertado.\nEu sabia que ia passar uns dias sem te ver, e já sentia a saudade chegando. Essa é, sem dúvida, a memória que mais me marca com você."
+  },
+  {
+    titulo: "quiser saber o que eu aprendi com você",
+    texto: "Você me ensinou tanta coisa, desde detalhes simples até aprendizados que mudaram meu jeito de ver a vida.\nAprendi a pintar a unha direito, a cortar a unha (antes eu só cortava com tesoura de costura kkkkk a bichinha chega dobrava). Aprendi termos legais em coreano e seus significados. Aprendi a gostar de música coreana, assistir doramas e encontrar felicidade nas pequenas coisas.\nTeve aquele dia da máquina de ursinho: eu disse que tinha me arrependido de jogar porque não consegui pegar nada, e você me respondeu: 'O que importa é a diversão de jogar'. Foi aí que eu entendi: felicidade não é sobre ganhar ou perder, mas sobre sentir o momento."
+  }
+];
+
+
+const container = document.getElementById('cardsContainer');
+const modal = document.getElementById('modal');
+const modalText = document.getElementById('modalText');
+const closeBtn = document.getElementById('closeBtn');
+
+let typingTimeout; // guarda o timeout atual
+
+function typeWriterEffect(text, element, speed = 60) {
+  element.textContent = ""; // limpa antes
+  let i = 0;
+
+  function typing() {
+    if (i < text.length) {
+      element.textContent += text.charAt(i);
+      i++;
+      typingTimeout = setTimeout(typing, speed);
+    }
+  }
+
+  clearTimeout(typingTimeout); // limpa o anterior
+  typing(); // inicia
+}
+
+// Criar cards dinamicamente
+mensagens.forEach(msg => {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.dataset.text = msg.texto;
+  card.innerHTML = `<h2>${msg.titulo}</h2>`;
+  container.appendChild(card);
+
+  card.addEventListener('click', () => {
+    modal.style.display = 'flex';
+    typeWriterEffect(msg.texto, modalText, 45);
+  });
+});
+
+// Fechar modal
+closeBtn.addEventListener('click', () => {
+  modal.style.display = 'none';
+  clearTimeout(typingTimeout); // interrompe se fechar no meio
+});
+window.addEventListener('click', (e) => {
+  if(e.target === modal){
+    modal.style.display = 'none';
+    clearTimeout(typingTimeout);
+  }
+});
+</script>
+
+</body>
+</html>

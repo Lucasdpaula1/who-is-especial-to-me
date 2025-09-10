@@ -65,15 +65,13 @@
   
   .desktop-nav li a {
     font-weight: bold;
-    font-size: 1rem;
+    font-size: 2rem;
     text-decoration: none;
     background: linear-gradient(90deg, #ff8fa3, #3b82f6);
     background-clip: text;
     -webkit-background-clip: text;
     -moz-background-clip: text;
     color: transparent;
-    -webkit-text-fill-color: transparent;
-    -moz-text-fill-color: transparent;
     transition: all 0.5s ease;
     white-space: nowrap;
   }
@@ -135,8 +133,12 @@
     text-decoration: none;
     font-size: 1.1rem;
     background: linear-gradient(90deg, #ff8fa3, #3b82f6);
-    -webkit-text-fill-color: transparent;
     font-weight: bold;
+        background-clip: text;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    color: transparent;
+    transition: all 0.5s ease;
     transition: opacity 0.3s;
   }
   
@@ -361,6 +363,7 @@
     .desktop-nav {
       display: none !important;
     }
+
     
     #downloadBtn.desktop {
       display: none;
@@ -386,13 +389,14 @@
     main {
       padding: 100px 20px;
     }
+
   }
   
   @media (max-width: 420px) { 
     .container { 
       height: 50vh; 
     } 
-    
+
     #texto { 
       font-size: 0.9rem; 
       line-height: 1.4; 
@@ -416,8 +420,8 @@
     
     <nav class="desktop-nav">
       <ul>
-        <li><a href="japas.html">Leia me quando</a></li>
-        <li><a href="japas.html">Motivos pelos quais me apaixonei por você</a></li>
+        <li><a href="leiaMeQuando.html">Leia me quando</a></li>
+        <li><a href="motivos.html">Motivos pelos quais me apaixonei por você</a></li>
       </ul>
       <button id="downloadBtn" class="desktop">baixar carta digitalizada</button>
     </nav>
@@ -425,8 +429,8 @@
     <nav id="sidebar">
       <button class="close-btn" id="closeBtn">&times;</button>
       <ul>
-        <li><a href="japas.html">Leia me quando</a></li>
-        <li><a href="japas.html">Motivos pelos quais me apaixonei por você</a></li>
+        <li><a href="leiaMeQuando.html">Leia me quando</a></li>
+        <li><a href="motivos.html">Motivos pelos quais me apaixonei por você</a></li>
       </ul>
       <button id="downloadBtnMobile">baixar carta digitalizada</button>
     </nav>
@@ -471,6 +475,7 @@
       const userInput = document.getElementById("userInput");
       const validateBtn = document.getElementById("validateBtn");
       const envelopeWrapper = document.getElementById("envelopeWrapper");
+      const header = document.querySelector('header')
 
       // Verifica se já passou pelo check antes
       const isAuthenticate = JSON.parse(localStorage.getItem('progress'));
@@ -479,12 +484,15 @@
         // Se já autenticado, mostra tudo diretamente
         overlay.style.display = "none";
         envelopeWrapper.style.display = "flex";
+       
       } else {
         // Se ainda não autenticado, mostra overlay e espera input
         overlay.style.display = "flex";
+        header.style.display = "none"
         validateBtn.addEventListener("click", () => {
           if (userInput.value.trim().toLowerCase() === "a menina da calça azul") {
             overlay.style.display = "none";
+             header.style.display= "flex"
             localStorage.setItem('progress', JSON.stringify(true));
             envelopeWrapper.style.display = "flex";
           } else {
@@ -494,7 +502,7 @@
       }
     });
 
-    const texto = 'E lá vamos nós… vou usar toda minha memória pra escrever e te dedicar essa carta do fundo do coração. Sério, você é muito mais do que eu consigo colocar em palavras. Você é uma das poucas pessoas com quem eu realmente me aproximei, alguém que me fez sentir seguro pra amar e confiar. Desde a primeira vez que te vi, eu te chamei de "a menina da calça azul" pro Carlos. Você desviava o olhar de um jeito tímido que me encantava demais. Até que, em um dia qualquer, sentei do seu lado e perguntei: “Que horas são?” kkkkk, eu nem imaginava que uma pergunta tão besta ia me deixar curioso pra conhecer cada detalhe seu. No dia seguinte você não apareceu, e o Carlos comentou que você tinha pegado o mesmo ônibus que ele. Eu fiquei tipo “Ah não, será que eu assustei ela ontem?” fiquei aqui pensando comigo mesmo, “cara, eu fui muito invasivo ou tá tudo bem?” Mas aí você apareceu de novo, linda e radiante, e eu tentei não incomodar… mas, por dentro, morria de vontade de conversar contigo. Mais tarde, você veio falar comigo e eu fiquei tipo “ela trabalha no Sinduscon?” kkkk, eu nem sabia o que era Sinduscon. Pensei comigo mesmo: "Que diabo é Sinduscon? Aonde fica isso?" Fiz tantas perguntas na minha cabeça que não tive coragem de fazer na hora pra você, mas estava tão feliz que você tinha chegado até mim que tentei me conter com essas emoções. Logo quando cheguei no observatório, fui todo animado dizendo pro Carlos: “Carlos, adivinha quem veio falar comigo hoje?” Ele: “Quem?” Eu: “A menina da calça azul” 😄 Nesse mesmo dia, fui atrás de saber o que era Sinduscon pra, no outro dia, ter algum assunto em comum contigo kkkk. Lembro como se fosse ontme do nosso primeiro encontro no Food Square. Eu tava nervoso, nunca tinha ido lá e ainda por cima ia sair com você! Mas amei demais e me cultivo aquelas lembraças até hoje. Foi lá que rolou nosso primeiro beijo, e você estava incrível. Conheci mais sobre você, seus gostos, sua família, e você conheceu um pouco sobre mim. Rimos, brincamos, tentamos tirar o urso, mas o que ficou mesmo foram as risadas. Cada detalhe ficou guardado como em um filme de amor, vivendo o nosso próprio “Um Amor de Cinema”. Pensei: “como alguém pode ser tão incrível e nem perceber o quão especial é?” Quando você viajou pra Ushuaia, fiquei morrendo de saudades, mas pensei: “calma, é só uma semana”. Mesmo de longe eu queria estar perto, saber se você tava curtindo tudo, segura, aproveitando a natureza que você ama. E lembrei do colar que você tinha visto no Food Square… fui atrás dele como surpresa, guardando como se fosse um tesouro. Porque, sério, cada momento com você é precioso e eu quero lembrar de tudo. Você é verdadeira Adina, sem filtros, e me sinto sortudo demais de ter te conhecido. Cada dia ao seu lado parece preencher minha própria lista de vida, como nos filmes que a gente ama: “Um Amor de Cinema”. Gosto do seu jeito doce, do jeito tímido de perguntar algo, do seu sorriso que ilumina qualquer lugar. Me encanto com você todo dia. Tento fazer tudo que não fizeram por você, porque sei que você merece. Te amo muito, no momento estou com 30 motivos pelos quais me apaixonei por você, Adina, e dedico essa carta inteirinha a você';
+    const texto = 'E lá vamos nós… vou usar toda minha memória pra escrever e te dedicar essa carta do fundo do coração. Sério, você é muito mais do que eu consigo colocar em palavras. Você é uma das poucas pessoas com quem eu realmente me aproximei, alguém que me fez sentir seguro pra amar e confiar. Desde a primeira vez que te vi, eu te chamei de "a menina da calça azul" pro Carlos. Você desviava o olhar de um jeito tímido que me encantava demais. Até que, em um dia qualquer, sentei do seu lado e perguntei: “Que horas são?” kkkkk, eu nem imaginava que uma pergunta tão besta ia me deixar curioso pra conhecer cada detalhe seu. No dia seguinte você não apareceu, e o Carlos comentou que você tinha pegado o mesmo ônibus que ele. Eu fiquei tipo “Ah não, será que eu assustei ela ontem?” fiquei aqui pensando comigo mesmo, “cara, eu fui muito invasivo ou tá tudo bem?” Mas aí você apareceu de novo, linda e radiante, e eu tentei não incomodar… mas, por dentro, morria de vontade de conversar contigo. Mais tarde, você veio falar comigo e eu fiquei tipo “ela trabalha no Sinduscon?” kkkk, eu nem sabia o que era Sinduscon. Pensei comigo mesmo: "Que diabo é Sinduscon? Aonde fica isso?" Fiz tantas perguntas na minha cabeça que não tive coragem de fazer na hora pra você, mas estava tão feliz que você tinha chegado até mim que tentei me conter com essas emoções. Logo quando cheguei no observatório, fui todo animado dizendo pro Carlos: “Carlos, adivinha quem veio falar comigo hoje?” Ele: “Quem?” Eu: “A menina da calça azul” 😄 Nesse mesmo dia, fui atrás de saber o que era Sinduscon pra, no outro dia, ter algum assunto em comum contigo kkkk. Lembro como se fosse ontme do nosso primeiro encontro no Food Square. Eu tava nervoso, nunca tinha ido lá e ainda por cima ia sair com você! Mas amei demais e me cultivo aquelas lembraças até hoje. Foi lá que rolou nosso primeiro beijo, e você estava incrível. Conheci mais sobre você, seus gostos, sua família, e você conheceu um pouco sobre mim. Rimos, brincamos, tentamos tirar o urso, mas o que ficou mesmo foram as risadas. Cada detalhe ficou guardado como em um filme de amor, vivendo o nosso próprio “Um Amor de Cinema”. Pensei: “como alguém pode ser tão incrível e nem perceber o quão especial é?” Quando você viajou pra Ushuaia, fiquei morrendo de saudades, mas pensei: “calma, é só uma semana”. Mesmo de longe eu queria estar perto, saber se você tava curtindo tudo, se estava em segurança, aproveitando o momento com a natureza que sei que você ama. E lembrei do colar que você tinha visto no Food Square… fui atrás dele como surpresa, guardando como se fosse um tesouro. Porque, sério, cada momento com você é precioso e eu quero lembrar de tudo. Você é verdadeira Adina, sem filtros, e me sinto sortudo demais de ter te conhecido. Cada dia ao seu lado parece preencher minha própria lista de vida, como nos filmes que a gente ama: “Um Amor de Cinema”. Gosto do seu jeito doce, do jeito tímido de perguntar algo, do seu sorriso que ilumina qualquer lugar. Me encanto com você todo dia. Tento fazer tudo que não fizeram por você, porque sei que você merece. Te amo muito, no momento estou com 30 motivos pelos quais me apaixonei por você, Adina, e dedico essa carta inteirinha a você';
     let i = 0;
     const textoEl = document.getElementById("texto");
     const wrapperEl = document.getElementById("texto-wrapper");

@@ -1,11 +1,216 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="UTF-8">
+<title>30 Motivos Pelos Quais Me Apaixono</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    margin: 0;
+    font-family: 'Playfair Display', serif;
+    background: linear-gradient(135deg, #fce7f3, #e0f2fe);
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+  }
+
+  h1 {
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 1200px;
+  }
+
+  .card {
+    position: relative;
+    background: rgba(255,255,255,0.9);
+    border-radius: 15px;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  }
+
+  .card h2 {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+  }
+
+  /* Card visto */
+  .card.visto {
+    opacity: 0.6;
+    transform: scale(0.98);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    cursor: default;
+  }
+
+  /* Label "Visto" */
+  .card.visto::after {
+    content: "Visto";
+    position: absolute;
+    top: 8px;
+    right: 8px;
+      background: linear-gradient(135deg, #fce7f3, #e0f2fe);
+    color: white;
+    font-size: 0.75rem;
+    padding: 2px 6px;
+    border-radius: 8px;
+  }
+
+  /* Modal */
+  .modal {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    padding: 1rem;
+  }
+
+  .modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  }
+
+  .modal-content p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    white-space: pre-line;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ff5c7a;
+    cursor: pointer;
+  }
+
+  @media (max-width: 1024px) {
+    .modal-content { max-width: 80%; padding: 1.5rem; }
+  }
+
+  @media (max-width: 600px) {
+    .modal-content { padding: 1rem; }
+    .modal-content p { font-size: 1rem; line-height: 1.4; }
+    .close-btn { font-size: 1.2rem; top: 8px; right: 10px; }
+  }
+
+</style>
 </head>
 <body>
-    
+
+<h1>Motivos pelos quais me apaixonei por você</h1>
+<div class="cards-container" id="cardsContainer"></div>
+
+<!-- Modal -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <span class="close-btn" id="closeBtn">&times;</span>
+    <p id="modalText"></p>
+  </div>
+</div>
+
+<script>
+const motivos = [
+  {
+    titulo: "Leia um por dia",
+    texto: "Você sempre se preocupa comigo, com a minha saúde, tentando me dar um remedinho pra melhorar , seja um anti-inflamatório mais fraquinho ou algo mais forte. Esses cuidados pequenos, mas sinceros, me fazem sentir amado e protegido. Nunca mude isso. ❤️"
+  },
+  {
+    titulo: "Leia um por dia",
+    texto: "Admiro o quanto você gosta de se cuidar e se valorizar. Ver você se dedicando a si mesma mostra o quanto você se respeita, cuida da aparência,do cabelo, a forma que vc cuida do seu templo mais sagrado que é o seu corpo e isso é lindo de ver."
+  },
+  {
+    titulo: "Leia um por dia",
+    texto: "Eu amo como você fala o que pensa. Se não gosta de algo, você diz na lata, sem se moldar. Mesmo quando brinco que você tá virando a menininha da série kkkk, eu sei que lá no fundo você só quer ser sincera e isso é raro e incrível."
+  },
+  {
+    titulo: "Leia um por dia",
+    texto: "Seu jeito com os bichinhos me encanta, seja a Marin ou qualquer cachorro que você encontra na rua. O cuidado e carinho que você tem com eles mostram o tamanho do seu coração."
+  },
+  {
+    titulo: "Leia um por dia",
+    texto: "Você quer conhecer tudo sobre mim: meus amigos, minha família, meus gostos e até minhas manias bobas. Isso me faz querer te mostrar cada pedacinho da minha vida e me deixa ainda mais apaixonado por você."
+  },
+  { titulo: "Leia um por dia", texto: "Quando você me dá algo seu um boné, sua toalha ou até bolo no ônibus eu me sinto lembrado e especial. São detalhes que parecem bobos, mas significam muito pra mim" },
+  { titulo: "Leia um por dia", texto: "Você gosta de me mostrar seu mundo, me apresentar seus amigos, sua família, e cada pedacinho do seu dia. Isso me faz sentir parte da sua vida e me deixa cada vez mais próximo de você." },
+  { titulo: "Leia um por dia", texto: "Você sempre tenta ajudar, de qualquer forma: apoio moral, financeiro ou só um gesto simples. Lembro de quando você pagou minha passagem sem pensar duas vezes meu coração ficou quentinho por saber que posso contar com você." },
+  { titulo: "Leia um por dia", texto: "Adoro como você valoriza estar presente comigo, sem ficar grudada no celular. Seja conversando, assistindo algo ou comendo juntos, você faz cada momento ser especial." },
+  { titulo: "Leia um por dia", texto: "Adoro como você sabe tirar um tempo pra você, pra sair com amigos, curtir a família ou simplesmente se cuidar. Ver você se priorizar assim me inspira e me faz admirar ainda mais você." },
+  // aqui você pode adicionar os outros 25 motivos
+];
+
+
+const container = document.getElementById('cardsContainer');
+const modal = document.getElementById('modal');
+const modalText = document.getElementById('modalText');
+const closeBtn = document.getElementById('closeBtn');
+
+let vistos = JSON.parse(localStorage.getItem('cardsVistos')) || [];
+
+function showModal(text) {
+  modal.style.display = 'flex';
+  modalText.textContent = text;
+}
+
+motivos.forEach((motivo, index) => {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.innerHTML = `<h2>${motivo.titulo}</h2>`;
+  container.appendChild(card);
+
+  if(vistos.includes(index)) {
+    card.classList.add('visto');
+  }
+
+  card.addEventListener('click', () => {
+    if(!vistos.includes(index)) {
+      vistos.push(index);
+      localStorage.setItem('cardsVistos', JSON.stringify(vistos));
+      card.classList.add('visto');
+    }
+    showModal(motivo.texto);
+  });
+});
+
+closeBtn.addEventListener('click', () => {
+  modal.style.display = 'none';
+});
+window.addEventListener('click', (e) => {
+  if(e.target === modal){
+    modal.style.display = 'none';
+  }
+});
+</script>
 </body>
 </html>
