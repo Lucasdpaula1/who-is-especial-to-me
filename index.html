@@ -1,227 +1,506 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>💌 Carta Digital - Menina da Calça Azul 💌</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Playfair Display', serif;
-      background: linear-gradient(135deg, #fce7f3, #e0f2fe);
-      color: #333;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      overflow: hidden;
-    }
+<meta charset="UTF-8">
+<title>💌 Carta Digital - Menina da Calça Azul 💌</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
-    .container {
-      width: 700px;
-      height: 500px;
-      padding: 30px 20px;
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 20px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.15);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      position: relative;
-      transition: all 0.3s ease-in-out;
-    }
-
-    #texto-wrapper {
-      width: 100%;
-      height: 100%;
-      overflow-y: auto;
-      padding-right: 10px;
-      scrollbar-width: none; /* Firefox */
-    }
-    #texto-wrapper::-webkit-scrollbar {
-      display: none; /* Chrome, Edge, Safari */
-    }
-
-    #texto {
-      font-size: 1.2rem;
-      line-height: 1.8;
-      white-space: pre-line;
-      text-align: left;
-      border-right: none;
-    }
-
-    .title {
-      text-align: center;
-      font-size: 1.5rem;
-      margin-bottom: 15px;
-    }
-
-    .hearts, .petals {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    .heart, .petal {
-      position: absolute;
-      font-size: 20px;
-      animation: float 6s linear infinite;
-    }
-
-    .heart { color: #ff8fa3; }
-    .petal { color: #f7c7d9; font-size: 18px; }
-
-    @keyframes float {
-      0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
-      50% { opacity: 1; }
-      100% { transform: translateY(-10vh) scale(1); opacity: 0; }
-    }
-
-    /* Overlay de segurança */
-    .overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(255, 255, 255, 0.6);
-      backdrop-filter: blur(10px);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-    }
-    .overlay-box {
-      background: white;
-      padding: 30px 20px;
-      border-radius: 15px;
-      box-shadow: 0 4px 25px rgba(0,0,0,0.2);
-      text-align: center;
-      width: 280px;
-    }
-    .overlay-box h2 {
-      margin-bottom: 15px;
-      font-size: 1.2rem;
-    }
-    .overlay-box input {
-      padding: 8px 12px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      outline: none;
-      margin-bottom: 12px;
-      font-size: 1rem;
-      text-align: center;
-    }
-    .overlay-box button {
-      background: #ff8fa3;
-      border: none;
-      padding: 10px 20px;
-      color: white;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background 0.3s;
-    }
-    .overlay-box button:hover {
-      background: #ff5c7a;
-    }
-/* Dark/light mode */
-@media (prefers-color-scheme: dark) {
+<style>
+  *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
   body {
-    background: linear-gradient(135deg, #1e1e1e, #333);
-    color: #eee;
-  }
-  .container {
-    background: rgba(255, 255, 255, 0.95); /* container sempre claro */
-    color: #111;
-  }
-  .overlay {
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(12px);
-  }
-  .overlay-box {
-    background: rgba(255, 255, 255, 0.95);
-    color: #111;
-  }
-}
-
-@media (prefers-color-scheme: light) {
-  body {
+    margin: 0;
+    font-family: 'Playfair Display', serif;
     background: linear-gradient(135deg, #fce7f3, #e0f2fe);
     color: #333;
+    min-height: 100vh;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
   }
-  .container {
-    background: rgba(255, 255, 255, 0.95); /* container sempre claro */
+  main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    padding: 2rem;
+  }
+  
+  /* HEADER CORRIGIDO - Estrutura principal */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    position: relative;
+    z-index: 10000;
+  }
+  
+  /* Navegação desktop - visível apenas em telas maiores */
+  .desktop-nav {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    justify-content: center;
+  }
+  
+  .desktop-nav ul {
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+    margin-right: 2rem;
+  }
+  
+  .desktop-nav li {
+    list-style: none;
+  }
+  
+  .desktop-nav li a {
+    font-weight: bold;
+    font-size: 1rem;
+    text-decoration: none;
+    background: linear-gradient(90deg, #ff8fa3, #3b82f6);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    -moz-text-fill-color: transparent;
+    transition: all 0.5s ease;
+    white-space: nowrap;
+  }
+  
+  .desktop-nav li a:hover {
+    background: linear-gradient(90deg, #3b82f6, #ff8fa3);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+  }
+  
+  /* Botão de download no desktop */
+  #downloadBtn.desktop {
+    background: linear-gradient(135deg, #fce7f3, #e0f2fe);
+    border: 2px solid #3b82f6;
+    color: #333;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 8px 15px;
+    visibility: hidden;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    white-space: nowrap;
+  }
+  
+  /* SIDEBAR (mobile) */
+  #sidebar {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 280px;
+    height: 100%;
+    background: #fff;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+    padding: 60px 20px 20px 20px;
+    transition: left 0.3s ease;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  #sidebar.active {
+    left: 0;
+  }
+  
+  #sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  #sidebar ul li a {
+    text-decoration: none;
+    font-size: 1.1rem;
+    background: linear-gradient(90deg, #ff8fa3, #3b82f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+    transition: opacity 0.3s;
+  }
+  
+  #sidebar ul li a:hover {
+    opacity: 0.7;
+  }
+  
+  #sidebar #downloadBtnMobile {
+    margin-top: auto;
+    width: 100%;
+    padding: 10px;
+    background: linear-gradient(90deg, #3b82f6, #ff8fa3);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  /* Botão fechar sidebar */
+  .close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 1.8rem;
+    cursor: pointer;
+    border: none;
+    background: none;
     color: #333;
   }
+  
+  /* Botão hambúrguer - apenas mobile */
+  .hamburger {
+    cursor: pointer;
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 25px;
+    height: 18px;
+  }
+  
+  .hamburger span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background: linear-gradient(90deg, #ff8fa3, #3b82f6);
+    border-radius: 2px;
+  }
+
+  /* Restante do seu CSS original */
+  .container {
+    width: 700px;
+    max-width: 90%;
+    height: 500px;
+    max-height: 70vh;
+    padding: 30px 20px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    transition: all 0.3s ease-in-out;
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  
+  .container.show {
+    opacity: 1;
+    transform: translateY(0);
+    transition: transform 1s ease, opacity 1s ease;
+  }
+
+  #texto-wrapper {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    padding-right: 10px;
+    scrollbar-width: none;
+  }
+  
+  #texto-wrapper::-webkit-scrollbar { 
+    display: none; 
+  }
+
+  #texto {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    white-space: pre-line;
+    text-align: left;
+  }
+
+  .title { 
+    text-align: center; 
+    font-size: 1.5rem; 
+    margin-bottom: 15px; 
+  }
+
+  .hearts, .petals {
+    position: fixed;
+    top: 0; 
+    left: 0;
+    width: 100%; 
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .heart, .petal {
+    position: absolute;
+    font-size: 20px;
+    animation: float 6s linear infinite;
+  }
+  
+  .heart { 
+    color: #ff8fa3; 
+  }
+  
+  .petal { 
+    color: #f7c7d9; 
+    font-size: 18px; 
+  }
+
+  @keyframes float {
+    0% { 
+      transform: translateY(100vh) scale(0.5); 
+      opacity: 0; 
+    }
+    50% { 
+      opacity: 1; 
+    }
+    100% { 
+      transform: translateY(-10vh) scale(1); 
+      opacity: 0; 
+    }
+  }
+
+  /* Overlay */
   .overlay {
+    position: fixed;
+    inset: 0;
     background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
   }
+  
   .overlay-box {
-    background: rgba(255, 255, 255, 0.95);
-    color: #333;
+    background: white;
+    padding: 30px 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 25px rgba(0,0,0,0.2);
+    text-align: center;
+    width: auto;
+    min-width: 250px;
+    max-width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
   }
-}
+  
+  .overlay-box input {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    outline: none;
+    margin-bottom: 12px;
+    font-size: 1rem;
+    text-align: center;
+  }
+  
+  .overlay-box button {
+    background: #ff8fa3;
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+  }
+  
+  .overlay-box button:hover { 
+    background: #ff5c7a; 
+  }
 
-    /* Responsividade para tablets e smartphones */
-@media (max-width: 768px) {
-  .container {
-   width: 90vw;          /* reduz altura para telas menores */
-    margin: 2rem;
-  height: 50vh;
+  /* Envelope */
+  .envelope-wrapper {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9998;
   }
-  #texto {
-    font-size: 0.95rem;
+  
+  .envelope {
+    width: 350px;
+    height: 250px;
+    background: #f8c1c8;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    perspective: 1000px;
+    transition: transform 1s ease, opacity 1s ease;
   }
-}
+  
+  .envelope.open {
+    transform: rotateX(-90deg) translateY(-200px);
+    opacity: 0;
+  }
 
-@media (max-width: 420px) {
-   .container {
-   width: 90vw;          /* reduz altura para telas menores */
-    margin: 2rem;
-  height: 50vh;
+  /* Responsividade */
+  @media (max-width: 768px) {
+    .desktop-nav {
+      display: none !important;
+    }
+    
+    #downloadBtn.desktop {
+      display: none;
+    }
+    
+    .hamburger {
+      display: flex;
+    }
+    
+    .container { 
+      height: 50vh; 
+    } 
+    
+    #texto { 
+      font-size: 0.95rem; 
+    } 
+    
+    .envelope { 
+      width: 70%; 
+      height: 200px; 
+    } 
+    
+    main {
+      padding: 100px 20px;
+    }
   }
-  #texto {
-    font-size: 0.9rem;
-    line-height: 1.4;
+  
+  @media (max-width: 420px) { 
+    .container { 
+      height: 50vh; 
+    } 
+    
+    #texto { 
+      font-size: 0.9rem; 
+      line-height: 1.4; 
+    } 
+    
+    .envelope { 
+      width: 80%; 
+      height: 180px; 
+    } 
   }
-}
-
-  </style>
+</style>
 </head>
 <body>
-  <!-- Overlay -->
-  <div class="overlay" id="overlay">
-    <div class="overlay-box">
-      <h2>Somente a Ádina que eu conheço saberia responder...</h2>
-      <p>Sou o apelido que só você entende, e a cor certa nunca esteve na blusa</p>
-      <p>Quem eu sou??</p>
-      <input type="text" id="userInput" placeholder="Digite sua resposta"  />
-      <button id="validateBtn">Entrar</button>
+  <!-- HEADER CORRIGIDO -->
+  <header>
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
     </div>
-  </div>
+    
+    <nav class="desktop-nav">
+      <ul>
+        <li><a href="japas.html">Leia me quando</a></li>
+        <li><a href="japas.html">Motivos pelos quais me apaixonei por você</a></li>
+      </ul>
+      <button id="downloadBtn" class="desktop">baixar carta digitalizada</button>
+    </nav>
 
-  <div class="container">
-    <div id="texto-wrapper">
-      <p class="title">💌 Carta digital para menina da calça azul 💌</p>
-      <p id="texto"></p>
+    <nav id="sidebar">
+      <button class="close-btn" id="closeBtn">&times;</button>
+      <ul>
+        <li><a href="japas.html">Leia me quando</a></li>
+        <li><a href="japas.html">Motivos pelos quais me apaixonei por você</a></li>
+      </ul>
+      <button id="downloadBtnMobile">baixar carta digitalizada</button>
+    </nav>
+  </header>
+  
+  <main>
+    <!-- Overlay -->
+    <div class="overlay" id="overlay">
+      <div class="overlay-box">
+        <h2>Somente a Amanda que eu conheço saberia responder...</h2>
+        <p>Sou o apelido que só você entende, e a cor certa nunca esteve na blusa</p>
+        <p>Quem eu sou??</p>
+        <input type="text" id="userInput" placeholder="Digite sua resposta" />
+        <button id="validateBtn">Entrar</button>
+      </div>
     </div>
-  </div>
+    
+    <!-- Envelope -->
+    <div class="envelope-wrapper" id="envelopeWrapper" style="display:none;">
+      <div class="envelope" id="envelope">
+        <button id="openEnvelope">Abrir Carta</button>
+      </div>
+    </div>
+    
+    <!-- Carta -->
+    <div class="container" id="letterContainer">
+      <div id="texto-wrapper">
+        <p class="title">💌 Carta digital para menina da calça azul 💌</p>
+        <p id="texto"></p>
+      </div>
+    </div>
+  </main>
 
   <div class="hearts" id="hearts"></div>
   <div class="petals" id="petals"></div>
-
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script>
-    const texto = `E lá vamos nós… vou usar toda minha memória pra escrever e te dedicar essa carta do fundo do coração. Sério, você é muito mais do que eu consigo colocar em palavras. Você é uma das poucas pessoas com quem eu realmente me aproximei, alguém que me fez sentir seguro pra amar e confiar. Desde a primeira vez que te vi, eu te chamei de "a menina da calça azul" pro Carlos. Você desviava o olhar de um jeito tímido que me encantava demais. Até que, em um dia qualquer, sentei do seu lado e perguntei: “Que horas são?” kkkkk, eu nem imaginava que uma pergunta tão besta ia me deixar curioso pra conhecer cada detalhe seu. No dia seguinte você não apareceu, e o Carlos comentou que você tinha pegado o mesmo ônibus que ele. Eu fiquei tipo “Ah não, será que eu assustei ela ontem?” fiquei aqui pensando comigo mesmo, “cara, eu fui muito invasivo ou tá tudo bem?” Mas aí você apareceu de novo, linda e radiante, e eu tentei não incomodar… mas, por dentro, morria de vontade de conversar contigo. Mais tarde, você veio falar comigo e eu fiquei tipo “ela trabalha no Sinduscon?” kkkk, eu nem sabia o que era Sinduscon. Pensei comigo mesmo: "Que diabo é Sinduscon? Aonde fica isso?" Fiz tantas perguntas na minha cabeça que não tive coragem de fazer na hora pra você, mas estava tão feliz que você tinha chegado até mim que tentei me conter com essas emoções. Logo quando cheguei no observatório, fui todo animado dizendo pro Carlos: “Carlos, adivinha quem veio falar comigo hoje?” Ele: “Quem?” Eu: “A menina da calça azul” 😄 Nesse mesmo dia, fui atrás de saber o que era Sinduscon pra, no outro dia, ter algum assunto em comum contigo kkkk. Lembro como se fosse ontme do nosso primeiro encontro no Food Square. Eu tava nervoso, nunca tinha ido lá e ainda por cima ia sair com você! Mas amei demais e me cultivo aquelas lembraças até hoje. Foi lá que rolou nosso primeiro beijo, e você estava incrível. Conheci mais sobre você, seus gostos, sua família, e você conheceu um pouco sobre mim. Rimos, brincamos, tentamos tirar o urso, mas o que ficou mesmo foram as risadas. Cada detalhe ficou guardado como em um filme de amor, vivendo o nosso próprio “Um Amor de Cinema”. Pensei: “como alguém pode ser tão incrível e nem perceber o quão especial é?” Quando você viajou pra Ushuaia, fiquei morrendo de saudades, mas pensei: “calma, é só uma semana”. Mesmo de longe eu queria estar perto, saber se você tava curtindo tudo, segura, aproveitando a natureza que você ama. E lembrei do colar que você tinha visto no Food Square… fui atrás dele como surpresa, guardando como se fosse um tesouro. Porque, sério, cada momento com você é precioso e eu quero lembrar de tudo. Você é verdadeira Adina, sem filtros, e me sinto sortudo demais de ter te conhecido. Cada dia ao seu lado parece preencher minha própria lista de vida, como nos filmes que a gente ama: “Um Amor de Cinema”. Gosto do seu jeito doce, do jeito tímido de perguntar algo, do seu sorriso que ilumina qualquer lugar. Me encanto com você todo dia. Tento fazer tudo que não fizeram por você, porque sei que você merece. Te amo muito, no momento estou com 30 motivos pelos quais me apaixonei por você, Adina, e dedico essa carta inteirinha a você`;
+    // JavaScript atualizado
+    window.addEventListener('DOMContentLoaded', () => {
+      const overlay = document.getElementById("overlay");
+      const userInput = document.getElementById("userInput");
+      const validateBtn = document.getElementById("validateBtn");
+      const envelopeWrapper = document.getElementById("envelopeWrapper");
+
+      // Verifica se já passou pelo check antes
+      const isAuthenticate = JSON.parse(localStorage.getItem('progress'));
+
+      if (isAuthenticate) {
+        // Se já autenticado, mostra tudo diretamente
+        overlay.style.display = "none";
+        envelopeWrapper.style.display = "flex";
+      } else {
+        // Se ainda não autenticado, mostra overlay e espera input
+        overlay.style.display = "flex";
+        validateBtn.addEventListener("click", () => {
+          if (userInput.value.trim().toLowerCase() === "a menina da calça azul") {
+            overlay.style.display = "none";
+            localStorage.setItem('progress', JSON.stringify(true));
+            envelopeWrapper.style.display = "flex";
+          } else {
+            alert("Palavra incorreta, tente novamente! 💭");
+          }
+        });
+      }
+    });
+
+    const texto = 'E lá vamos nós… vou usar toda minha memória pra escrever e te dedicar essa carta do fundo do coração. Sério, você é muito mais do que eu consigo colocar em palavras. Você é uma das poucas pessoas com quem eu realmente me aproximei, alguém que me fez sentir seguro pra amar e confiar. Desde a primeira vez que te vi, eu te chamei de "a menina da calça azul" pro Carlos. Você desviava o olhar de um jeito tímido que me encantava demais. Até que, em um dia qualquer, sentei do seu lado e perguntei: “Que horas são?” kkkkk, eu nem imaginava que uma pergunta tão besta ia me deixar curioso pra conhecer cada detalhe seu. No dia seguinte você não apareceu, e o Carlos comentou que você tinha pegado o mesmo ônibus que ele. Eu fiquei tipo “Ah não, será que eu assustei ela ontem?” fiquei aqui pensando comigo mesmo, “cara, eu fui muito invasivo ou tá tudo bem?” Mas aí você apareceu de novo, linda e radiante, e eu tentei não incomodar… mas, por dentro, morria de vontade de conversar contigo. Mais tarde, você veio falar comigo e eu fiquei tipo “ela trabalha no Sinduscon?” kkkk, eu nem sabia o que era Sinduscon. Pensei comigo mesmo: "Que diabo é Sinduscon? Aonde fica isso?" Fiz tantas perguntas na minha cabeça que não tive coragem de fazer na hora pra você, mas estava tão feliz que você tinha chegado até mim que tentei me conter com essas emoções. Logo quando cheguei no observatório, fui todo animado dizendo pro Carlos: “Carlos, adivinha quem veio falar comigo hoje?” Ele: “Quem?” Eu: “A menina da calça azul” 😄 Nesse mesmo dia, fui atrás de saber o que era Sinduscon pra, no outro dia, ter algum assunto em comum contigo kkkk. Lembro como se fosse ontme do nosso primeiro encontro no Food Square. Eu tava nervoso, nunca tinha ido lá e ainda por cima ia sair com você! Mas amei demais e me cultivo aquelas lembraças até hoje. Foi lá que rolou nosso primeiro beijo, e você estava incrível. Conheci mais sobre você, seus gostos, sua família, e você conheceu um pouco sobre mim. Rimos, brincamos, tentamos tirar o urso, mas o que ficou mesmo foram as risadas. Cada detalhe ficou guardado como em um filme de amor, vivendo o nosso próprio “Um Amor de Cinema”. Pensei: “como alguém pode ser tão incrível e nem perceber o quão especial é?” Quando você viajou pra Ushuaia, fiquei morrendo de saudades, mas pensei: “calma, é só uma semana”. Mesmo de longe eu queria estar perto, saber se você tava curtindo tudo, segura, aproveitando a natureza que você ama. E lembrei do colar que você tinha visto no Food Square… fui atrás dele como surpresa, guardando como se fosse um tesouro. Porque, sério, cada momento com você é precioso e eu quero lembrar de tudo. Você é verdadeira Adina, sem filtros, e me sinto sortudo demais de ter te conhecido. Cada dia ao seu lado parece preencher minha própria lista de vida, como nos filmes que a gente ama: “Um Amor de Cinema”. Gosto do seu jeito doce, do jeito tímido de perguntar algo, do seu sorriso que ilumina qualquer lugar. Me encanto com você todo dia. Tento fazer tudo que não fizeram por você, porque sei que você merece. Te amo muito, no momento estou com 30 motivos pelos quais me apaixonei por você, Adina, e dedico essa carta inteirinha a você';
     let i = 0;
     const textoEl = document.getElementById("texto");
     const wrapperEl = document.getElementById("texto-wrapper");
     let isTyping = true;
-
+    
     wrapperEl.addEventListener('scroll', () => {
       const bottom = wrapperEl.scrollHeight - wrapperEl.scrollTop - wrapperEl.clientHeight;
       isTyping = bottom < 10;
@@ -235,22 +514,25 @@
         setTimeout(typeWriter, 30);
       } else if (i < texto.length && !isTyping) {
         setTimeout(typeWriter, 100);
+      } else if (i >= texto.length) {
+        document.getElementById('downloadBtn').style.visibility = "visible";
+        document.getElementById('downloadBtnMobile').style.visibility = "visible";
       }
     }
-    const overlay = document.getElementById("overlay");
-    const validateBtn = document.getElementById("validateBtn");
-    const userInput = document.getElementById("userInput");
-    function checkProgressToLetter(){  if (userInput.value.trim().toLowerCase() === "a menina da calça azul") {
-        overlay.style.display = "none";
+
+    // Abrir carta
+    document.getElementById("openEnvelope").addEventListener("click", () => {
+      document.getElementById("envelope").classList.add("open");
+      setTimeout(() => {
+        document.getElementById("envelopeWrapper").style.display = "none";
+        document.getElementById("letterContainer").classList.add("show");
         typeWriter();
         setInterval(createHeart, 500);
         setInterval(createPetal, 700);
-      } else {
-        alert("Palavra incorreta, tente novamente! 💭");
-      }}
-    validateBtn.addEventListener("click", checkProgressToLetter);
+      }, 1000);
+    });
 
-    // Corações animados
+    // Corações
     function createHeart() {
       const heart = document.createElement("div");
       heart.classList.add("heart");
@@ -260,9 +542,8 @@
       document.getElementById("hearts").appendChild(heart);
       setTimeout(() => heart.remove(), 6000);
     }
-    
 
-    // Pétalas animadas
+    // Pétalas
     function createPetal() {
       const petal = document.createElement("div");
       petal.classList.add("petal");
@@ -272,7 +553,37 @@
       document.getElementById("petals").appendChild(petal);
       setTimeout(() => petal.remove(), 8000);
     }
-    
+
+    // Controle do sidebar
+    const hamburger = document.getElementById('hamburger');
+    const sidebar = document.getElementById('sidebar');
+    const closeBtn = document.getElementById('closeBtn');
+
+    hamburger.addEventListener('click', () => {
+      sidebar.classList.add('active');
+    });
+
+    closeBtn.addEventListener('click', () => {
+      sidebar.classList.remove('active');
+    });
+
+    // Botão de download
+    const downloadBtn = document.getElementById('downloadBtn');
+    const downloadBtnMobile = document.getElementById('downloadBtnMobile');
+    const element = document.getElementById('texto-wrapper');
+
+    function downloadPdf() {
+      html2pdf().from(element).set({
+        margin: 0.5,
+        filename: 'carta-digital.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+      }).save();
+    }
+
+    downloadBtn.addEventListener('click', downloadPdf);
+    downloadBtnMobile.addEventListener('click', downloadPdf);
   </script>
 </body>
 </html>

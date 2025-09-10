@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>LEIA ME QUANDO ESTIVER</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    margin: 0;
+    font-family: 'Playfair Display', serif;
+    background: linear-gradient(135deg, #fce7f3, #e0f2fe);
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+  }
+
+  h1 {
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  /* Grid de cards */
+  .cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 1200px;
+  }
+
+  .card {
+    background: rgba(255,255,255,0.9);
+    border-radius: 15px;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  }
+
+  .card h2 {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+  }
+
+  /* Modal */
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    padding: 1rem;
+  }
+
+  .modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  }
+
+  .modal-content p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ff5c7a;
+    cursor: pointer;
+  }
+
+  /* Responsividade */
+  @media (max-width: 1024px) {
+    .cards-container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .cards-container {
+      grid-template-columns: 1fr; /* pilha no celular */
+    }
+    .card {
+      padding: 1.2rem;
+    }
+    .card h2 {
+      font-size: 1rem;
+    }
+  }
+
+</style>
+</head>
+<body>
+
+<h1>Leia Me Quando...</h1>
+
+<div class="cards-container">
+  <div class="card" data-text="Se estiver triste, lembre-se que dias ruins também passam, respire fundo e sorria.">
+    <h2>triste</h2>
+  </div>
+  <div class="card" data-text="Se estiver feliz, compartilhe sua alegria com quem você ama e aproveite cada momento!">
+    <h2>feliz</h2>
+  </div>
+  <div class="card" data-text="Se estiver com medo, lembre-se da sua coragem e de todas as vezes que superou desafios.">
+    <h2>com medo</h2>
+  </div>
+  <div class="card" data-text="Se estiver sozinho, saiba que você é importante e amado mesmo quando ninguém está por perto.">
+    <h2>sozinho</h2>
+  </div>
+  <div class="card" data-text="Se estiver confuso, respire fundo e ouça sua intuição, ela nunca falha.">
+    <h2>confuso</h2>
+  </div>
+  <div class="card" data-text="Se estiver cansado, permita-se descansar, seu corpo e mente merecem isso.">
+    <h2>cansado</h2>
+  </div>
+  <div class="card" data-text="Se estiver animado, espalhe essa energia positiva ao seu redor!">
+    <h2>animado</h2>
+  </div>
+  <div class="card" data-text="Se estiver nervoso, conte até 10, respire fundo e lembre-se que tudo passa.">
+    <h2>nervoso</h2>
+  </div>
+  <div class="card" data-text="Se estiver inspirado, escreva, crie e compartilhe sua arte com o mundo!">
+    <h2>inspirado</h2>
+  </div>
+  <div class="card" data-text="Se estiver perdido, lembre-se que todo caminho começa com um passo, confie no processo.">
+    <h2>perdido</h2>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <span class="close-btn" id="closeBtn">&times;</span>
+    <p id="modalText"></p>
+  </div>
+</div>
+
+<script>
+const cards = document.querySelectorAll('.card');
+const modal = document.getElementById('modal');
+const modalText = document.getElementById('modalText');
+const closeBtn = document.getElementById('closeBtn');
+
+cards.forEach(card => {
+  card.addEventListener('click', () => {
+    modalText.textContent = card.dataset.text;
+    modal.style.display = 'flex';
+  });
+});
+
+closeBtn.addEventListener('click', () => {
+  modal.style.display = 'none';
+});
+
+window.addEventListener('click', (e) => {
+  if(e.target === modal){
+    modal.style.display = 'none';
+  }
+});
+</script>
+
+</body>
+</html>
