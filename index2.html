@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>💌 Carta Digital - Menina da Calça Azul 💌</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+<style>
+  *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Playfair Display', serif;
+   
+    color: #333;
+    min-height: 100vh;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    padding: 2rem;
+  }
+  
+  /* HEADER CORRIGIDO - Estrutura principal */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    position: relative;
+    z-index: 10000;
+  }
+  
+  /* Navegação desktop - visível apenas em telas maiores */
+  .desktop-nav {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    justify-content: center;
+  }
+  
+  .desktop-nav ul {
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+    margin-right: 2rem;
+  }
+  
+  .desktop-nav li {
+    list-style: none;
+  }
+  
+  .desktop-nav li a {
+    font-weight: bold;
+    font-size: 2rem;
+    text-decoration: none;
+    background: linear-gradient(90deg, #ff8fa3, #3b82f6);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    color: transparent;
+    transition: all 0.5s ease;
+    white-space: nowrap;
+  }
+  
+  .desktop-nav li a:hover {
+    background: linear-gradient(90deg, #3b82f6, #ff8fa3);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+  }
+  
+  /* Botão de download no desktop */
+  #downloadBtn.desktop {
+    background: linear-gradient(135deg, #fce7f3, #e0f2fe);
+    border: 2px solid #3b82f6;
+    color: #333;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 8px 15px;
+    visibility: hidden;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    white-space: nowrap;
+  }
+  
+  /* SIDEBAR (mobile) */
+  #sidebar {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 280px;
+    height: 100%;
+    background: #fff;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+    padding: 60px 20px 20px 20px;
+    transition: left 0.3s ease;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  #sidebar.active {
+    left: 0;
+  }
+  
+  #sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  #sidebar ul li a {
+    text-decoration: none;
+    font-size: 1.1rem;
+    background: linear-gradient(90deg, #ff8fa3, #3b82f6);
+    font-weight: bold;
+        background-clip: text;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    color: transparent;
+    transition: all 0.5s ease;
+    transition: opacity 0.3s;
+  }
+  
+  #sidebar ul li a:hover {
+    opacity: 0.7;
+  }
+  
+  #sidebar #downloadBtnMobile {
+    margin-top: auto;
+    width: 100%;
+    padding: 10px;
+    background: linear-gradient(90deg, #3b82f6, #ff8fa3);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  /* Botão fechar sidebar */
+  .close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 1.8rem;
+    cursor: pointer;
+    border: none;
+    background: none;
+    color: #333;
+  }
+  
+  /* Botão hambúrguer - apenas mobile */
+  .hamburger {
+    cursor: pointer;
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 25px;
+    height: 18px;
+  }
+  
+  .hamburger span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background: linear-gradient(90deg, #ff8fa3, #3b82f6);
+    border-radius: 2px;
+  }
+
+  /* Restante do seu CSS original */
+  .container {
+    width: 700px;
+    max-width: 90%;
+    height: 500px;
+    max-height: 70vh;
+    padding: 30px 20px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    transition: all 0.3s ease-in-out;
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  
+  .container.show {
+    opacity: 1;
+    transform: translateY(0);
+    transition: transform 1s ease, opacity 1s ease;
+  }
+
+  #texto-wrapper {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    padding-right: 10px;
+    scrollbar-width: none;
+  }
+  
+  #texto-wrapper::-webkit-scrollbar { 
+    display: none; 
+  }
+
+  #texto {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    white-space: pre-line;
+    text-align: left;
+  }
+
+  .title { 
+    text-align: center; 
+    font-size: 1.5rem; 
+    margin-bottom: 15px; 
+  }
+
+  .hearts, .petals {
+    position: fixed;
+    top: 0; 
+    left: 0;
+    width: 100%; 
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .heart, .petal {
+    position: absolute;
+    font-size: 20px;
+    animation: float 6s linear infinite;
+  }
+  
+  .heart { 
+    color: #ff8fa3; 
+  }
+  
+  .petal { 
+    color: #f7c7d9; 
+    font-size: 18px; 
+  }
+
+  @keyframes float {
+    0% { 
+      transform: translateY(100vh) scale(0.5); 
+      opacity: 0; 
+    }
+    50% { 
+      opacity: 1; 
+    }
+    100% { 
+      transform: translateY(-10vh) scale(1); 
+      opacity: 0; 
+    }
+  }
+
+  /* Overlay */
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  
+  .overlay-box {
+    background: white;
+    padding: 30px 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 25px rgba(0,0,0,0.2);
+    text-align: center;
+    width: auto;
+    min-width: 250px;
+    max-width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+  
+  .overlay-box input {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    outline: none;
+    margin-bottom: 12px;
+    font-size: 1rem;
+    text-align: center;
+  }
+  
+  .overlay-box button {
+    background: #ff8fa3;
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+  }
+  
+  .overlay-box button:hover { 
+    background: #ff5c7a; 
+  }
+
+  /* Envelope */
+  .envelope-wrapper {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9998;
+  }
+  
+  .envelope {
+    width: 350px;
+    height: 250px;
+    background: #f8c1c8;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    perspective: 1000px;
+    transition: transform 1s ease, opacity 1s ease;
+  }
+  
+  .envelope.open {
+    transform: rotateX(-90deg) translateY(-200px);
+    opacity: 0;
+  }
+  #lightningOverlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle, rgba(0, 191, 255, 0.8) 0%, transparent 80%);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 10001;
+  transition: opacity 0.5s ease;
+}
+
+.spark {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #00bfff;
+  border-radius: 50%;
+  opacity: 1;
+  pointer-events: none;
+  animation: sparkAnim 1s forwards;
+}
+
+@keyframes sparkAnim {
+  0% { transform: scale(1) translate(0,0); opacity: 1; }
+  50% { transform: scale(2) translate(var(--x), var(--y)); opacity: 0.8; }
+  100% { transform: scale(0) translate(var(--x), var(--y)); opacity: 0; }
+}
+
+/* Carta queimando/fade */
+.container.burnIn {
+  animation: burnFadeIn 1.5s forwards;
+}
+
+@keyframes burnFadeIn {
+  0% { opacity: 0; transform: scale(1.2) rotate(3deg); filter: brightness(1.5) contrast(1.2); }
+  50% { opacity: 1; transform: scale(1) rotate(0deg); filter: brightness(1) contrast(1); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); filter: brightness(1) contrast(1); }
+}
+
+
+  /* Responsividade */
+  @media (max-width: 768px) {
+    .desktop-nav {
+      display: none !important;
+    }
+
+    
+    #downloadBtn.desktop {
+      display: none;
+    }
+    
+    .hamburger {
+      display: flex;
+    }
+    
+    .container { 
+      height: 50vh; 
+    } 
+    
+    #texto { 
+      font-size: 0.95rem; 
+    } 
+    
+    .envelope { 
+      width: 70%; 
+      height: 200px; 
+    } 
+    
+    main {
+      padding: 100px 20px;
+    }
+
+  }
+  
+  @media (max-width: 420px) { 
+    .container { 
+      height: 50vh; 
+    } 
+
+    #texto { 
+      font-size: 0.9rem; 
+      line-height: 1.4; 
+    } 
+    
+    .envelope { 
+      width: 80%; 
+      height: 180px; 
+    } 
+  }
+</style>
+</head>
+<body>
+  <!-- HEADER CORRIGIDO -->
+   <!-- Overlay do raio -->
+   
+   <header>
+       <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    
+    <nav class="desktop-nav">
+      <ul>
+        <li><a href="leiaMeQuando.html">Leia me quando</a></li>
+        <li><a href="motivos.html">Motivos pelos quais me apaixonei por você</a></li>
+      </ul>
+      <button id="downloadBtn" class="desktop">baixar carta digitalizada</button>
+    </nav>
+
+    <nav id="sidebar">
+      <button class="close-btn" id="closeBtn">&times;</button>
+      <ul>
+        <li><a href="leiaMeQuando.html">Leia me quando</a></li>
+        <li><a href="motivos.html">Motivos pelos quais me apaixonei por você</a></li>
+      </ul>
+      <button id="downloadBtnMobile">baixar carta digitalizada</button>
+    </nav>
+</header>
+
+<main>
+      <canvas id="lightningOverlay"></canvas>
+    <!-- Overlay -->
+    <div class="overlay" id="overlay">
+      <div class="overlay-box">
+        <h2>Somente a Amanda que eu conheço saberia responder...</h2>
+        <p>Sou o apelido que só você entende, e a cor certa nunca esteve na blusa</p>
+        <p>Quem eu sou??</p>
+        <input type="text" id="userInput" placeholder="Digite sua resposta" />
+        <button id="validateBtn">Entrar</button>
+      </div>
+    </div>
+    
+    <!-- Envelope -->
+    <div class="envelope-wrapper" id="envelopeWrapper" style="display:none;">
+      <div class="envelope" id="envelope">
+        <button id="openEnvelope">Abrir Carta</button>
+      </div>
+    </div>
+    
+    <!-- Carta -->
+    <div class="container" id="letterContainer">
+      <div id="texto-wrapper">
+        <p class="title">💌 Carta digital para menina da calça azul 💌</p>
+        <p id="texto"></p>
+      </div>
+    </div>
+  </main>
+
+  <div class="hearts" id="hearts"></div>
+  <div class="petals" id="petals"></div>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+  // Espera o carregamento do DOM
+  window.addEventListener('DOMContentLoaded', () => {
+    const overlay = document.getElementById("overlay");
+    const userInput = document.getElementById("userInput");
+    const validateBtn = document.getElementById("validateBtn");
+    const envelopeWrapper = document.getElementById("envelopeWrapper");
+    const header = document.querySelector('header');
+
+    // Verifica se já passou pelo check antes
+    const isAuthenticate = JSON.parse(localStorage.getItem('progress'));
+
+    if (isAuthenticate) {
+      overlay.style.display = "none";
+      envelopeWrapper.style.display = "flex";
+    } else {
+      overlay.style.display = "flex";
+      header.style.display = "none";
+      validateBtn.addEventListener("click", () => {
+        if (userInput.value.trim().toLowerCase() === "a menina da calça azul") {
+          overlay.style.display = "none";
+          header.style.display = "flex";
+          localStorage.setItem('progress', JSON.stringify(true));
+          envelopeWrapper.style.display = "flex";
+        } else {
+          alert("Palavra incorreta, tente novamente! 💭");
+        }
+      });
+    }
+  });
+
+  // ELEMENTOS PRINCIPAIS
+  const envelope = document.getElementById("envelope");
+  const envelopeWrapper = document.getElementById("envelopeWrapper");
+  const letterContainer = document.getElementById("letterContainer");
+  const lightningOverlay = document.getElementById("lightningOverlay");
+
+  // Texto da carta
+  const texto = 'E lá vamos nós… vou usar toda minha memória pra escrever e te dedicar essa carta do fundo do coração. Sério, você é muito mais do que eu consigo colocar em palavras. ... (seu texto completo aqui) ...';
+  let i = 0;
+  const textoEl = document.getElementById("texto");
+  const wrapperEl = document.getElementById("texto-wrapper");
+  let isTyping = true;
+
+  // Detecta scroll para pausar a digitação
+  wrapperEl.addEventListener('scroll', () => {
+    const bottom = wrapperEl.scrollHeight - wrapperEl.scrollTop - wrapperEl.clientHeight;
+    isTyping = bottom < 10;
+  });
+
+  function typeWriter() {
+    if (i < texto.length && isTyping) {
+      textoEl.innerHTML += texto.charAt(i);
+      i++;
+      wrapperEl.scrollTop = textoEl.scrollHeight;
+      setTimeout(typeWriter, 30);
+    } else if (i < texto.length && !isTyping) {
+      setTimeout(typeWriter, 100);
+    } else if (i >= texto.length) {
+      document.getElementById('downloadBtn').style.visibility = "visible";
+      document.getElementById('downloadBtnMobile').style.visibility = "visible";
+    }
+  }
+
+  // CONFIGURAÇÃO DO CANVAS
+  const ctx = lightningOverlay.getContext("2d");
+  lightningOverlay.width = window.innerWidth;
+  lightningOverlay.height = window.innerHeight;
+
+  function resizeCanvas() {
+    lightningOverlay.width = window.innerWidth;
+    lightningOverlay.height = window.innerHeight;
+  }
+
+  window.addEventListener('resize', resizeCanvas);
+
+  // EVENTO DE ABRIR ENVELOPE COM ESPIRAL E EXPLOSÃO
+  document.getElementById("openEnvelope").addEventListener("click", () => {
+  // mostra o canvas
+  lightningOverlay.style.display = "block";
+
+  // garante que o canvas esteja com tamanho atualizado
+  lightningOverlay.width = window.innerWidth;
+  lightningOverlay.height = window.innerHeight;
+
+  const ctx = lightningOverlay.getContext("2d");
+  const centerX = lightningOverlay.width / 2;
+  const centerY = lightningOverlay.height / 2;
+  const maxRadius = Math.min(lightningOverlay.width, lightningOverlay.height) / 2;
+
+  let radius = 0;
+  let angle = 0;
+
+  function drawSpiral() {
+    ctx.clearRect(0, 0, lightningOverlay.width, lightningOverlay.height);
+
+    ctx.beginPath();
+    ctx.strokeStyle = "#00bfff";
+    ctx.lineWidth = 2;
+
+    for (let r = 0; r < radius; r += 2) {
+      const x = centerX + r * Math.cos(r * 0.2 + angle);
+      const y = centerY + r * Math.sin(r * 0.2 + angle);
+      ctx.lineTo(x, y);
+    }
+
+    ctx.stroke();
+
+    radius += 5;
+    angle += 0.15;
+
+    if (radius < maxRadius) {
+      requestAnimationFrame(drawSpiral);
+    } else {
+      // explosão final
+      const particles = [];
+      for (let i = 0; i < 40; i++) {
+        particles.push({
+          x: centerX,
+          y: centerY,
+          vx: (Math.random() - 0.5) * 15,
+          vy: (Math.random() - 0.5) * 15,
+          radius: Math.random() * 4 + 2,
+          alpha: 1
+        });
+      }
+
+      function drawExplosion() {
+        ctx.clearRect(0, 0, lightningOverlay.width, lightningOverlay.height);
+        particles.forEach(p => {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(0,191,255,${p.alpha})`;
+          ctx.fill();
+          p.x += p.vx;
+          p.y += p.vy;
+          p.alpha -= 0.02;
+        });
+
+        if (particles.some(p => p.alpha > 0)) {
+          requestAnimationFrame(drawExplosion);
+        } else {
+          // Carta aparece após explosão
+          envelope.classList.add("open");
+          setTimeout(() => {
+            envelopeWrapper.style.display = "none";
+            letterContainer.classList.add("burnIn", "show");
+            typeWriter();
+            setInterval(createHeart, 500);
+            setInterval(createPetal, 700);
+            lightningOverlay.style.display = "none";
+          }, 500);
+        }
+      }
+
+      drawExplosion();
+    }
+  }
+
+  drawSpiral();
+});
+  // Funções para animação de corações
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+    heart.innerHTML = "💖";
+    document.getElementById("hearts").appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+  }
+
+  // Funções para animação de pétalas
+  function createPetal() {
+    const petal = document.createElement("div");
+    petal.classList.add("petal");
+    petal.style.left = Math.random() * 100 + "vw";
+    petal.style.animationDuration = (Math.random() * 4 + 4) + "s";
+    petal.innerHTML = "🌸";
+    document.getElementById("petals").appendChild(petal);
+    setTimeout(() => petal.remove(), 8000);
+  }
+
+  // Controle do sidebar mobile
+  const hamburger = document.getElementById('hamburger');
+  const sidebar = document.getElementById('sidebar');
+  const closeBtn = document.getElementById('closeBtn');
+
+  hamburger.addEventListener('click', () => sidebar.classList.add('active'));
+  closeBtn.addEventListener('click', () => sidebar.classList.remove('active'));
+
+  // Botão de download da carta
+  const downloadBtn = document.getElementById('downloadBtn');
+  const downloadBtnMobile = document.getElementById('downloadBtnMobile');
+  const element = document.getElementById('texto-wrapper');
+
+  function downloadPdf() {
+    html2pdf().from(element).set({
+      margin: 0.5,
+      filename: 'carta-digital.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    }).save();
+  }
+
+  downloadBtn.addEventListener('click', downloadPdf);
+  downloadBtnMobile.addEventListener('click', downloadPdf);
+</script>
+
+
+</body>
+</html>
